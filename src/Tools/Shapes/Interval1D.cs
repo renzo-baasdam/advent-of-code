@@ -13,7 +13,6 @@ public record Interval1D(long Start, long End) : IEnumerable<long>
 
     public long Length => End - Start + 1;
 
-
     public IEnumerable<Interval1D> Remove(Interval1D other)
     {
         if (Start < other.Start) yield return new Interval1D(Start, Math.Min(other.Start - 1, End));
@@ -25,6 +24,13 @@ public record Interval1D(long Start, long End) : IEnumerable<long>
         return Overlap(other)
             ? new Interval1D(Math.Max(Start, other.Start), Math.Min(End, other.End))
             : throw new Exception();
+    }
+
+    public Interval1D Union(Interval1D other)
+    {
+        return Overlap(other)
+            ? new Interval1D(Math.Min(Start, other.Start), Math.Max(End, other.End))
+            : throw new NotSupportedException("Non overlapping intervals");
     }
 
     public IEnumerator<long> GetEnumerator()
