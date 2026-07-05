@@ -41,9 +41,8 @@ public sealed class Day25 : Day
                     for (int i = 0; i < paths[^1].Count - 1; i++)
                     {
                         copy[paths[^1][i]].Remove(paths[^1][i + 1]);
-                        copy[paths[^1][i + 1]].Remove(paths[^1][i]);
                     }
-                };
+                }
                 if (paths.Count == 3)
                 {
                     var reachable = ReachableVertices(start, copy);
